@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `Employee` MODIFY `dob` VARCHAR(191) NOT NULL,
+    MODIFY `doj` VARCHAR(191) NOT NULL,
+    MODIFY `resignDate` VARCHAR(191) NOT NULL,
+    MODIFY `leavingDate` VARCHAR(191) NOT NULL;
