@@ -18,7 +18,7 @@ const adminAuth = async (req, res, next) => {
       },
     });
     if (!user) {
-       return res.status(401).send({ error: "Please authenticate as admin" });
+      return res.status(401).send({ error: "Please authenticate as admin" });
     }
     req.token = token;
     req.user = user;
@@ -31,11 +31,11 @@ const adminAuth = async (req, res, next) => {
 
 const employeeAuth = async (req, res, next) => {
   try {
-      const token = req.header("Authorization").replace("Bearer ", "");
-      if (!token) {
-          return res.status(401).send({ error: "Please authenticate" });
-      }
-      
+    const token = req.header("Authorization").replace("Bearer ", "");
+    if (!token) {
+      return res.status(401).send({ error: "Please authenticate" });
+    }
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await prisma.employee.findUnique({
       where: {
@@ -43,7 +43,7 @@ const employeeAuth = async (req, res, next) => {
       },
     });
     if (!user) {
-        return res.status(401).send({ error: "Please authenticate as employee" });
+      return res.status(401).send({ error: "Please authenticate as employee" });
     }
     req.token = token;
     req.user = user;
