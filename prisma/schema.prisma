@@ -24,5 +24,16 @@ model Employee {
   leavingDate String?
   employeeBehaviour String?
   remarks String?
+  email String? @unique
+  phone String?
+  otp     Int?
 
+}
+
+model Admin {
+  id       Int      @id @default(autoincrement()) 
+  name     String?   
+  email     String?   @unique
+  otp     Int?
+  phone     String?
 }
