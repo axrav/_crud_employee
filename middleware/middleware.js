@@ -7,7 +7,9 @@ const prisma = require("../client/client").prisma;
 const adminAuth = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
-    console.log(token);
+    if (!token) {
+      return res.status(401).send({ error: "Please authenticate" });
+    }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log(decoded);
     const user = await prisma.admin.findUnique({
@@ -16,7 +18,7 @@ const adminAuth = async (req, res, next) => {
       },
     });
     if (!user) {
-      throw new Error();
+       return res.status(401).send({ error: "Please authenticate as admin" });
     }
     req.token = token;
     req.user = user;
@@ -29,7 +31,11 @@ const adminAuth = async (req, res, next) => {
 
 const employeeAuth = async (req, res, next) => {
   try {
-    const token = req.header("Authorization").replace("Bearer ", "");
+      const token = req.header("Authorization").replace("Bearer ", "");
+      if (!token) {
+          return res.status(401).send({ error: "Please authenticate" });
+      }
+      
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await prisma.employee.findUnique({
       where: {
@@ -37,7 +43,7 @@ const employeeAuth = async (req, res, next) => {
       },
     });
     if (!user) {
-      throw new Error();
+        return res.status(401).send({ error: "Please authenticate as employee" });
     }
     req.token = token;
     req.user = user;

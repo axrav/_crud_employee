@@ -72,7 +72,7 @@ exports.updateEmployee = function (req, res) {
       },
       data: payload,
     });
-    employee
+    employee_data
       .then((data) => {
         res.status(200).json(data);
       })
